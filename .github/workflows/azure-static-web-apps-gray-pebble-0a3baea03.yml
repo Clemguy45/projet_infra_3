@@ -11,7 +11,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout Repository
@@ -24,9 +24,9 @@ jobs:
 
     - name: Build Spring Boot App
       run: |
-        cd projet_infra_3_backend
-        ./mvnw clean install
-      working-directory: ./projet_infra_3_backend
+        Set-Location -Path .\projet_infra_3_backend
+        .\mvnw clean install
+      shell: pwsh
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
@@ -35,13 +35,14 @@ jobs:
 
     - name: Install Angular CLI
       run: npm install -g @angular/cli
+      shell: pwsh
 
     - name: Build Angular App
       run: |
-        cd projet_infra_3_frontend
+        Set-Location -Path .\projet_infra_3_frontend
         npm install
         ng build --prod
-      working-directory: ./projet_infra_3_frontend
+      shell: pwsh
 
     - name: Set up kubectl
       uses: azure/setup-kubectl@v1
@@ -51,3 +52,4 @@ jobs:
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
         kubectl apply -f mongodb-secret.yaml
+      shell: pwsh
