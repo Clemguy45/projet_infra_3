@@ -1,34 +1,59 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: projet_infra_3
+  name: projet-infra-3-backend-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: my-app
+      app: projet-infra-3-backend
   template:
     metadata:
       labels:
-        app: my-app
+        app: projet-infra-3-backend
     spec:
       containers:
-      - name: projet_infra_3
-        image: your-registry.azurecr.io/projetinfra:latest
-        ports:
-        - containerPort: 8080
-      - name: mongodb
-        image: mongo:latest
-        ports:
-          - containerPort: 27017
-        env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-credentials
-                key: username
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-credentials
-                key: password
+        - name: projet-infra-3-backend-container
+          image: your-registry.azurecr.io/projet-infra-3-backend-image:latest
+          ports:
+            - containerPort: 8080
+        - name: mongodb
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-credentials
+                  key: username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-credentials
+                  key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: projet-infra-3-backend-service
+spec:
+  selector:
+    app: projet-infra-3-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: projet-infra-3-backend
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
