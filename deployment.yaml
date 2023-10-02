@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: projet_infra_3
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: projet_infra_3
+        image: your-registry.azurecr.io/projetinfra:latest
+        ports:
+        - containerPort: 8080
