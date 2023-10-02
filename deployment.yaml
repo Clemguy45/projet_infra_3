@@ -17,3 +17,18 @@ spec:
         image: your-registry.azurecr.io/projetinfra:latest
         ports:
         - containerPort: 8080
+      - name: mongodb
+        image: mongo:latest
+        ports:
+          - containerPort: 27017
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-credentials
+                key: username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-credentials
+                key: password

@@ -10,3 +10,15 @@ spec:
       port: 80
       targetPort: 8080
   type: LoadBalancer
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
