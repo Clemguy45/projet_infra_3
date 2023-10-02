@@ -19,4 +19,4 @@ RUN apt-get update && apt-get install -y \
 ARG BUILD_ENV=dev
 
 # Command to run the application based on the build environment
-CMD ["sh", "-c", "java -Dspring.profiles.active=$BUILD_ENV -jar projet_infra_3_backend-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "projet_infra_3_backend-0.0.1-SNAPSHOT.jar"]
