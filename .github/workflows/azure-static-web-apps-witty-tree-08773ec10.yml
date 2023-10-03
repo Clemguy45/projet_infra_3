@@ -19,8 +19,6 @@ jobs:
         uses: actions/setup-node@v1  
         with:  
           node-version: '18.18.0'
-      - name: Install dependencies  
-        run: npm install
       - uses: actions/checkout@v3
         with:
           submodules: true
