@@ -30,6 +30,5 @@ public class User {
     private Date joinDate;
     private String role; //ROLE_USER{read, edit}, ROLE_ADMIN {delete}
     private String[] authorities;
-    private boolean isSignedEndClass;
     private boolean isNotLocked;
 }
