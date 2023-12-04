@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/projet_infra_3_backend/target/*.war'
+          path: '${{ github.workspace }}/projet_infra_3_backend/'
 
   deploy:
     runs-on: ubuntu-latest
